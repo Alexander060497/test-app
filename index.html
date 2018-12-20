@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Chat</title>
+
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+	<!-- Vue.js script source -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<body>
+<div class="container col-sm-3">
+  <div id="SimpleChatApp">
+    <div class="panel panel-default">
+      <h2 class='text-center'>Simple App</h2>
+      <form v-on:submit='addMessage'>
+        <div class="col-sm-8">
+          <input type="text" class='form-control' v-model='messages.name'>
+        </div>
+
+        <div class="col-sm-4">
+          <input type="submit" value='Send' class='btn btn-primary'>
+        </div>
+      </form>
+      &nbsp;
+    </div>
+
+    <table class="table">
+      <thead>
+        <th>Message</th>
+        <th>Delete</th>
+      </thead>
+
+      <tbody>
+        <tr v-for='message in messages'>
+          <td><span :class="{ message: message }">{{ message.name }}</span></td>
+          <td><button class="btn btn-secondary" v-on:click="deleteMessage(message)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+var SimpleChatApp = new Vue({
+  el: '#SimpleChatApp',
+  data: {
+    messages: [
+      { name: 'Hellow world!' },
+      { name: 'test' },
+    ]
+  },
+  methods: {
+    addMessage: function(e) {
+      e.preventDefault();
+      this.messages.push({
+        name: this.messages.name,
+      });
+    },
+    deleteMessage: function(message) {
+      this.messages.splice(this.messages.indexOf(message), 1)
+    }
+  }
+});
+</script>
+</body>
+</html>
